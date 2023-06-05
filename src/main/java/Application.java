@@ -7,27 +7,20 @@ import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
-        final String user = "postgres";
-        final String password = "g@vgth0";
-        final String url = "jdbc:postgresql://localhost:5432/skypro";
 
 
-        EmployeeDAO employeeDAO;
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            employeeDAO = new EmployeeDAOImpl(connection);
-            System.out.println(employeeDAO.readById(41));
+        EmployeeDAO employeeDAO =  new EmployeeDAOImpl();
+        employeeDAO = new EmployeeDAOImpl();
+        System.out.println(employeeDAO.readById(41));
 
-            Employee employeeForAge = employeeDAO.readById(41);
-            employeeForAge.setAge(35);
-            employeeDAO.updateById(employeeForAge);
-            employeeDAO.deleteById(45);
-            employeeDAO.readAll().forEach(System.out::println);
+        Employee employeeNew = new Employee("Новый", "Новиков", "mail", 46);
+        employeeDAO.create(employeeNew);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
+        Employee employeeForAge = employeeDAO.readById(41);
+        employeeForAge.setAge(55);
+        employeeDAO.updateById(employeeForAge);
+        employeeDAO.deleteById(51);
+        employeeDAO.readAll().forEach(System.out::println);
 
     }
 }
