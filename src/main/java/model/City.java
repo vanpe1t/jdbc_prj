@@ -1,30 +1,48 @@
 package model;
 
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
+@Entity
+@Table(name = "city")
 public class City {
-    private Integer city_id;
-    private String city_name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "city_id")
+    private Integer cityId;
+    @Column(name = "city_name")
+    private String cityName;
+    @OneToMany(cascade = CascadeType.REFRESH, orphanRemoval = false)
+    @JoinColumn(name = "city_id")
+    private Set<Employee> employee;
+
+    public City() {
+    }
 
     public City(Integer city_id, String city_name) {
-        this.city_id = city_id;
-        this.city_name = city_name;
+        this.cityId = city_id;
+        this.cityName = city_name;
     }
 
-    public Integer getCity_id() {
-        return city_id;
+    public City(String city_name) {
+        this.cityName = city_name;
     }
 
-    public void setCity_id(Integer city_id) {
-        this.city_id = city_id;
+    public Integer getCityId() {
+        return cityId;
     }
 
-    public String getCity_name() {
-        return city_name;
+    public void setCityId(Integer city_id) {
+        this.cityId = city_id;
     }
 
-    public void setCity_name(String city_name) {
-        this.city_name = city_name;
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String city_name) {
+        this.cityName = city_name;
     }
 
     @Override
@@ -32,19 +50,19 @@ public class City {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         City city = (City) o;
-        return city_id.equals(city.city_id) && city_name.equals(city.city_name);
+        return cityId.equals(city.cityId) && cityName.equals(city.cityName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(city_id, city_name);
+        return Objects.hash(cityId, cityName);
     }
 
     @Override
     public String toString() {
         return "City{" +
-                "city_id=" + city_id +
-                ", city_name='" + city_name + '\'' +
+                "city_id=" + cityId +
+                ", city_name='" + cityName + '\'' +
                 '}';
     }
 }
