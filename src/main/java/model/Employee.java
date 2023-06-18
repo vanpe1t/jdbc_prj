@@ -20,7 +20,7 @@ public class Employee {
     @Column(name = "age")
     private Integer age;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "city_id")
     private City city;
 

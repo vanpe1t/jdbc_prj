@@ -13,8 +13,8 @@ public class City {
     private Integer cityId;
     @Column(name = "city_name")
     private String cityName;
-    @OneToMany(cascade = CascadeType.REFRESH, orphanRemoval = false)
-    @JoinColumn(name = "city_id")
+    @OneToMany(mappedBy = "city", cascade = CascadeType.REFRESH, orphanRemoval = false)
+    //@JoinColumn(name = "city_id")
     private Set<Employee> employee;
 
     public City() {
